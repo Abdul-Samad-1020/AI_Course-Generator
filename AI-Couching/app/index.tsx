@@ -35,6 +35,7 @@ const Index = () => {
             fontSize: 20,
             color: Color.WHITE,
             marginTop: 20,
+            fontFamily: 'outfit-bold',
             textAlign: "center",
           }}
         >
