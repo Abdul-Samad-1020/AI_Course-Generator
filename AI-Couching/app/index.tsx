@@ -1,7 +1,15 @@
-import { View, Image, Text, StyleSheet } from "react-native";
+import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import Color from "./../Constants/ColoUrs";
+import { useRoute } from "@react-navigation/native";
+import { router } from "expo-router";
 const Index = () => {
+  const Abdul = "Abdul Samad"; // Replace with your name
+ const route = useRoute();
+ 
+ 
+ 
+ 
   return (
     <View style={{ flex: 1, backgroundColor: Color.WHITE }}>
       <Image
@@ -22,12 +30,12 @@ const Index = () => {
         <Text
           style={{
             fontSize: 30,
-            fontWeight: "bold",
             color: Color.WHITE,
             textAlign: "center",
+            fontFamily: 'outfit-bold',
           }}
         >
-          WEllcome to Abdul SAmad
+          Wellcome {Abdul}
         </Text>
 
         <Text
@@ -42,13 +50,17 @@ const Index = () => {
           Transform your ideas into engaging educational content
         </Text>
 
-        <View style={styles.button}>
-          <Text style={[styles.buttonText,{color:Color.PRIMARY, fontSize:16,fontWeight:600}]}>Get Start</Text>
-        </View>
+        <TouchableOpacity 
+          style={styles.button} 
+          onPress={() => router.push('/auth/SignIn')} // Remove '.jsx' extension
+        >
 
-        <View style={[styles.button,{backgroundColor:Color.PRIMARY, borderWidth:1, borderColor: Color.WHITE}]}>
-          <Text style={[styles.buttonText,{color:Color.WHITE,fontSize:14,fontWeight:600}]}>Already Have an Account</Text>
-        </View>
+          <Text style={[styles.buttonText,{color:Color.PRIMARY, fontSize:16,fontWeight:600}]}>Get Start</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={()=>{router.push('/auth/SignUp')}} style={[styles.button,{backgroundColor:Color.PRIMARY, borderWidth:1, borderColor: Color.WHITE}]}>
+          <Text style={[styles.buttonText,{color:Color.WHITE,fontSize:14}]}>Already Have an Account</Text>
+        </TouchableOpacity>
 
       </View>
     </View>
@@ -70,5 +82,6 @@ const styles = StyleSheet.create({
   buttonText: {
   textAlign: "center",
   fontSize: 18,
+  fontFamily: 'Outfit',
   },
 });
