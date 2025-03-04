@@ -8,8 +8,11 @@ import {
   Pressable,
 } from "react-native";
 import React from "react";
+import { useRouter } from "expo-router";
 import Colors from "./../../Constants/ColoUrs";
 const SignUp = () => {
+  const router = useRouter();
+
   return (
     <View
       style={{
@@ -38,15 +41,15 @@ const SignUp = () => {
         Create New Account
       </Text>
       <TextInput
-        style={styles.TextInput}
+        style={styles.textInput}
         placeholder="Enter your Name"
       ></TextInput>
       <TextInput
-        style={styles.TextInput}
+        style={styles.textInput}
         placeholder="Enter your email"
       ></TextInput>
       <TextInput
-        style={styles.TextInput}
+        style={styles.textInput}
         secureTextEntry={true}
         placeholder="Enter your password"
         keyboardType="visible"
@@ -70,21 +73,33 @@ const SignUp = () => {
         >
           Create Account
         </Text>
-            <View style={
-                {
-                    display: "flex",
-                    flexDirection:'row', gap: 5,
-                    marginTop: 20,
-                }
-            }> 
-            <Text>ALrady hace an Account</Text>
-            <Pressable>
-            <Text>Sign In Here</Text>
-            </Pressable>
-            </TouchableOpacity>
-            </View>
-            
-            
+      </TouchableOpacity>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: 5,
+          marginTop: 20,
+        }}
+      >
+        <Text
+          style={{
+            fontFamily: "outfit",
+          }}
+        >
+          ALrady hace an Account
+        </Text>
+        <Pressable onPress={() => router.push("auth/SignIn")}>
+          <Text
+            style={{
+              fontFamily: "outfit-bold",
+              color: Colors.PRIMARY,
+            }}
+          >
+            Sign In Here
+          </Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
