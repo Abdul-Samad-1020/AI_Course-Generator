@@ -8,10 +8,40 @@ import {
   Pressable,
 } from "react-native";
 import React from "react";
-import { useRouter } from "expo-router";
+import { useRouter, useState } from "expo-router";
 import Colors from "./../../Constants/ColoUrs";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { db } from "../../Config/FireBaseConfig";
 const SignUp = () => {
   const router = useRouter();
+  const [name , setName]= useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+
+  const createNewAccount=()=>{
+   createUserWithEmailAndPassword(Auth,email,password)
+   .then(async(resp)=>{
+    const user=resp.user;
+    console.log(user);
+    await saveUser(user);
+    // save user to database 
+   })
+   .catch((e) => {
+     console.log(e.message);
+   });
+   //NAviagte to new screen
+  }
+  const saveUser=async(user)=>{
+    await setDoc(doc(db, ' users', email),{
+      name: name,
+      email: email,
+      member:false,
+      uid:user?.uid
+    })
+    // save user to database
+    // navigate to home screen
+  }
+
 
   return (
     <View
@@ -42,14 +72,19 @@ const SignUp = () => {
       </Text>
       <TextInput
         style={styles.textInput}
+        onChange={(value)=>setName(value)}
         placeholder="Enter your Name"
       ></TextInput>
       <TextInput
         style={styles.textInput}
+        onChange={(value)=>setEmail(value)}
+        
         placeholder="Enter your email"
       ></TextInput>
       <TextInput
         style={styles.textInput}
+        onChange={(value)=>setPassword(value)}
+        
         secureTextEntry={true}
         placeholder="Enter your password"
         keyboardType="visible"
@@ -62,6 +97,7 @@ const SignUp = () => {
           marginTop: 25,
           borderRadius: 10,
         }}
+        onPress={createNewAccount}
       >
         <Text
           style={{
